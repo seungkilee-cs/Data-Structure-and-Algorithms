@@ -3,9 +3,9 @@ import os
 
 def select_directory(base_path: str, exclude: list[str] = [], depth=0) -> str:
     """
-    Recursively let the user select a directory to add a file/subdir to.
-    At top level, only allow selecting a directory to enter.
-    At 2nd level or deeper, allow creating a subdirectory or selecting the current directory.
+    At depth 0 (root): only allow selecting a directory to enter.
+    At depth 1: allow selecting a directory or creating a new subdirectory.
+    At depth 2: return this directory for file creation.
     """
     while True:
         dirs = [
@@ -14,22 +14,28 @@ def select_directory(base_path: str, exclude: list[str] = [], depth=0) -> str:
             if os.path.isdir(os.path.join(base_path, d)) and d not in exclude
         ]
         print(f"\nCurrent directory: {base_path}")
+
+        # At depth 2, stop and return this directory for file creation
+        if depth == 2:
+            return base_path
+
         if dirs:
             print("Select a directory:")
             for idx, d in enumerate(dirs):
                 print(f"  {idx + 1}. {d}")
 
-        # At depth >= 1 (not top level), allow creating/selecting
         options = len(dirs)
-        if depth >= 1:
+        if depth == 1:
             print(f"  {options + 1}. Create new subdirectory here")
             options += 1
-            # print(f"  {options + 1}. Select this directory")
-            # options += 1
         elif not dirs:
-            print("No subdirectories. You must create a new subdirectory here.")
-            print(f"  1. Create new subdirectory here")
-            options = 1
+            if depth == 0:
+                print("No subdirectories. Please create one at the root level first.")
+                return base_path
+            elif depth == 1:
+                print("No subdirectories. You must create a new subdirectory here.")
+                print(f"  1. Create new subdirectory here")
+                options = 1
 
         choice = input("Enter choice number: ").strip()
         try:
@@ -41,7 +47,7 @@ def select_directory(base_path: str, exclude: list[str] = [], depth=0) -> str:
         if dirs and 1 <= choice <= len(dirs):
             base_path = os.path.join(base_path, dirs[choice - 1])
             depth += 1
-        elif (depth >= 1 and choice == len(dirs) + 1) or (not dirs and choice == 1):
+        elif depth == 1 and choice == len(dirs) + 1:
             new_dir = input("Enter new subdirectory name: ").strip()
             new_dir_path = os.path.join(base_path, new_dir)
             os.makedirs(new_dir_path, exist_ok=True)
@@ -50,8 +56,15 @@ def select_directory(base_path: str, exclude: list[str] = [], depth=0) -> str:
             open(init_path, "a").close()
             print(f"Created {new_dir_path} and __init__.py")
             return new_dir_path
-        # elif depth >= 1 and choice == len(dirs) + 2:
-        #    return base_path
+        elif not dirs and depth == 1 and choice == 1:
+            new_dir = input("Enter new subdirectory name: ").strip()
+            new_dir_path = os.path.join(base_path, new_dir)
+            os.makedirs(new_dir_path, exist_ok=True)
+            # Ensure __init__.py
+            init_path = os.path.join(new_dir_path, "__init__.py")
+            open(init_path, "a").close()
+            print(f"Created {new_dir_path} and __init__.py")
+            return new_dir_path
         else:
             print("Invalid choice. Try again.")
 
