@@ -70,7 +70,10 @@ def select_directory(base_path: str, exclude: list[str] = [], depth=0) -> str:
 
 
 def create_python_file(directory: str) -> str:
-    file_name = input("Enter new Python file name (without .py): ").strip() + ".py"
+    raw_name = input("Enter new Python file name (without .py): ").strip()
+    # Replace all whitespace (including tabs, etc.) with underscores
+    file_base = "_".join(raw_name.split())
+    file_name = file_base + ".py"
     file_path = os.path.join(directory, file_name)
     if not os.path.exists(file_path):
         with open(file_path, "w") as f:

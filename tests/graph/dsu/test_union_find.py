@@ -1,4 +1,4 @@
-# Test for union-find.py
+# Test for union_find.py
 import unittest
 
 class TestCase(unittest.TestCase):
