@@ -2,12 +2,25 @@ import unittest
 from graph.dfs.matrix_dfs import exist
 
 
-def test_matrix_dfs():
+class TestMatrixDFS(unittest.TestCase):
     board1 = [["A", "B", "C", "E"], ["S", "F", "C", "S"], ["A", "D", "E", "E"]]
-    assert exist(board1, "ABCCED") == True
-    assert exist(board1, "SEE") == True
-    assert exist(board1, "ABCB") == False
     board2 = [["a"]]
-    assert exist(board2, "a") == True
-    assert exist(board2, "b") == False
-    print("All Matrix DFS tests passed!")
+    print(f"board1: {board1}")
+    print(f"board2: {board2}")
+
+    def test_board1(self):
+        board1 = [["A", "B", "C", "E"], ["S", "F", "C", "S"], ["A", "D", "E", "E"]]
+        print(f"board1: {board1}")
+        self.assertTrue(exist(board1, "ABCCED"))
+        self.assertTrue(exist(board1, "SEE"))
+        self.assertFalse(exist(board1, "ABCB"))
+
+    def test_board2(self):
+        board2 = [["a"]]
+        print(f"board2: {board2}")
+        self.assertTrue(exist(board2, "a"))
+        self.assertFalse(exist(board2, "b"))
+
+
+if __name__ == "__main__":
+    unittest.main()
