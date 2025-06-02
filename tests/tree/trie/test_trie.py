@@ -1,4 +1,5 @@
-from trie import Trie
+import unittest
+from tree.trie.trie import Trie
 
 
 def test_trie():

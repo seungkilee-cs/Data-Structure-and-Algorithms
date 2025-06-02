@@ -1,4 +1,5 @@
-from matrix_dfs import exist
+import unittest
+from graph.dfs.matrix_dfs import exist
 
 
 def test_matrix_dfs():
