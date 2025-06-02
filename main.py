@@ -7,8 +7,11 @@ def main():
 
     # --- Add specific tests here ---
 
-    # To add all tests from a specific test file (module):
-    suite.addTests(loader.loadTestsFromName("tests.graph.dfs.test_matrix_dfs"))
+    # To add all tests from a specific test file module):
+    #    suite.addTests(
+    #        loader.loadTestsFromName("tests.graph.dfs.test_matrix_dfs_recursive")
+    #    )
+    suite.addTests(loader.loadTestsFromName("tests.tree.trie.test_trie"))
 
     # To add a specific test class:
     # suite.addTests(loader.loadTestsFromName('tests.graph.dfs.test_matrix_dfs.TestMatrixDFS'))

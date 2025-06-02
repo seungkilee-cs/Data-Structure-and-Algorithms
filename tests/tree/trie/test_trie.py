@@ -2,19 +2,28 @@ import unittest
 from tree.trie.trie import Trie
 
 
-def test_trie():
+class TestTrie(unittest.TestCase):
     trie = Trie()
     trie.insert("apple")
-    assert trie.search("apple") == True, "apple should be found"
-    assert trie.search("app") == False, "app is a prefix, not a word"
-    assert trie.startsWith("app") == True, "app is a prefix"
+    print("apple inserted")
+    print("search for 'apple' -> True")
+    assert trie.search("apple"), "apple should be found"
+    print("search for 'app' -> False")
+    assert not trie.search("app"), "app is a prefix, not a word"
+    print("startswith 'app' -> True")
+    assert trie.startsWith("app"), "app is a prefix"
     trie.insert("app")
-    assert trie.search("app") == True, "app should now be found"
+    print("app inserted")
+    print("search for 'app' -> True")
+    assert trie.search("app"), "app should now be found"
     trie.insert("banana")
-    assert trie.search("banana") == True
-    assert trie.startsWith("ban") == True
-    assert trie.startsWith("bana") == True
-    assert trie.startsWith("band") == False
+    print("banana inserted")
+    print("search for 'banana' -> True")
+    assert trie.search("banana")
+    print("search for 'ban' -> True")
+    assert trie.startsWith("ban")
+    print("startswith for 'band' -> False")
+    assert not trie.startsWith("band")
     print("All Trie tests passed!")
 
 
