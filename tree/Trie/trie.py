@@ -8,3 +8,9 @@ class TrieNode:
 class Trie:
     def __init__(self):
         self.root = TrieNode()
+
+    def search(self, word: str) -> bool:
+        return False
+
+    def startsWith(self, char: str) -> bool:
+        return False

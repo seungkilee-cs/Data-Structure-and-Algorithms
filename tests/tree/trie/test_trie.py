@@ -16,3 +16,7 @@ def test_trie():
     assert trie.startsWith("bana") == True
     assert trie.startsWith("band") == False
     print("All Trie tests passed!")
+
+
+if __name__ == "__main__":
+    unittest.main()
