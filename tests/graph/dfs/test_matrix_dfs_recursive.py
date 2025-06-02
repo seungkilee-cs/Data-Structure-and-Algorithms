@@ -1,5 +1,5 @@
 import unittest
-from graph.dfs.matrix_dfs import exist
+from graph.dfs.matrix_dfs_recursive import exist
 
 
 class TestMatrixDFS(unittest.TestCase):
